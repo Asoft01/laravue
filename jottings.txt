@@ -1,0 +1,40 @@
+npm install admin-lte@v3.0.0-alpha.2 --save
+php artisan serve
+php artisan make:auth
+php artisan migrate
+laravue\app\Providers\AppServiceProvider.php
+php artisan migrate:fresh
+then copy the source files from its source 
+view-source:https://adminlte.io/themes/v3/starter.html
+and paste it in master.blade.php
+then use <link rel="stylesheet" href="/css/app.css">
+and <!-- REQUIRED SCRIPTS -->
+<script src="/js/app.js"></script>
+
+Then edit home.blade.php @extends('layouts.master')
+
+Open bootstrap.js 
+ require('bootstrap');
+    require('admin-lte');
+N.B use the name in the package.json
+
+Open app.scss
+@import '~bootstrap/scss/bootstrap';
+@import '~admin-lte/dist/css/adminlte.css';
+npm run watch
+
+
+T3 
+npm install --save @fortawesome/fontawesome-free
+
+Add this to the variable
+
+$fa-font-path:        "../webfonts";
+
+https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/sass
+
+
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+
