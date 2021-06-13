@@ -38,3 +38,9 @@ https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/sass
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
 
+git remote add origin https://github.com/lekhad/laravue.git
+git push -u origin master
+
+T6
+npm install vue-router
+laravue\resources\assets\js\app.js
