@@ -10,6 +10,10 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
+import Form from 'vform'
+import Vue from 'vue';
+
+window.Form = Form;
 
 Vue.use(VueRouter)
 
@@ -18,13 +22,17 @@ let routes = [
     { path: '/users', component:  require('./components/Users.vue') },
     { path: '/profile', component:  require('./components/Profile.vue') }
   ]
-
   // register the router
   // The history mode is used to format the url in a nice format
 const router = new VueRouter({
     mode: 'history',
     routes // short for `routes: routes`
 })
+
+Vue.filter('upText', function(text){
+    // return text.toUpperCase();
+    return text.charAt(0).toUpperCase() + text.slice(1)
+});
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

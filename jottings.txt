@@ -44,3 +44,10 @@ git push -u origin master
 T6
 npm install vue-router
 laravue\resources\assets\js\app.js
+
+Form Validation in Vue
+https://github.com/cretueusebiu/vform
+
+npm i axios vform
+
+php artisan make:controller API/UserController --api

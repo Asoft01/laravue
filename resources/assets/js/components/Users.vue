@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-      <div id="row mt-5">
-          <div class="col-md-12">
+        <div class="row mt-5">
+            <div class="col-md-12">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Users Table</h3>
@@ -19,27 +19,29 @@
                       <th>Name</th>
                       <th>Email</th>
                       <th>Type</th>
+                      <th>Registered At</th>
                       <th>Modify</th>
                     </tr>
                   </thead>
+
                   <tbody>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                     
+                    <tr v-for="user in users" :key="user.id">
+                      <td>{{ user.id }}</td>
+                      <td>{{ user.name }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>{{ user.type | upText }}</td>
+                      <td>{{ user.created_at }}</td>
                       <td>
                         <a href="#">
                             <i class="fa fa-edit blue"></i>
                         </a>
-
+                        /
                         <a href="#">
                             <i class="fa fa-trash red"></i>
                         </a>
+                        
                       </td>
                     </tr>
-                    
                   </tbody>
                 </table>
               </div>
@@ -47,36 +49,91 @@
             </div>
             <!-- /.card -->
           </div>
-   
-      </div>
-      
-    <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addNewLabel">Add New</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Create</button>
-            </div>
-            </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addNewLabel">Add New</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <form @submit.prevent="createUser">
+                  <div class="modal-body"> 
+                    <div class="form-group">
+                      <input class="form-control" v-model="form.name" type="text" name="name" placeholder="Name">
+                      <div v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                    </div>
+
+                    <div class="form-group">
+                      <input class="form-control" v-model="form.email" type="text" name="email" placeholder="Email Address">
+                      <div v-if="form.errors.has('email')" v-html="form.errors.get('email')" />
+                    </div>
+
+                    <div class="form-group">
+                      <textarea class="form-control" v-model="form.bio" type="text" name="bio"></textarea>
+                      <div v-if="form.errors.has('bio')" v-html="form.errors.get('bio')" />
+                    </div>
+
+                    <div class="form-group">
+                      <select class="form-control" v-model="form.type">
+                        <option value="">Select User Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">Standard User</option>
+                        <option value="author">Author</option>
+                      </select>
+                      <div v-if="form.errors.has('type')" v-html="form.errors.get('type')" />
+                    </div>
+
+                    
+                    <div class="form-group">
+                      <input class="form-control" v-model="form.password" type="password" name="password" placeholder="Enter Password">
+                      <div v-if="form.errors.has('password')" v-html="form.errors.get('password')" />
+                    </div>
+                  </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </form>
+              </div>
+            </div>
         </div>
     </div>
-
 </template>
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        data(){
+          return {
+            users: {},
+
+            form: new Form({
+               username: '',
+               email : '',
+               password: '',
+               type: '',
+               bio: '',
+               photo: ''
+            })
+          }
+        },
+        methods: {
+          loadUsers(){
+              axios.get("api/user").then(({ data }) => (this.users = data.data));
+          },
+
+          createUser(){
+            this.form.post('api/user');
+          }
+        },
+        created(){
+          this.loadUsers();
         }
     }
 </script>
