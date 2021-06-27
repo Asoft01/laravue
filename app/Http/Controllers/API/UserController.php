@@ -14,10 +14,11 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // }
 
     /**
      * Display a listing of the resource.
@@ -55,6 +56,12 @@ class UserController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
+    }
+
+
+    public function profile()
+    {
+        return auth('api')->user();
     }
 
     /**
