@@ -111,7 +111,5 @@ class UserController extends Controller
         $user->delete();
         // Redirect Back
         return ['message' => 'User Deleted'];
-
-        $user = User::findOrFail($id);
     }
 }

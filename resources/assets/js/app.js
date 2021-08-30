@@ -23,11 +23,13 @@ window.Form = Form;
 
 Vue.use(VueRouter)
 
+// The color to the progress bar
 Vue.use(VueProgressBar, {
     color: 'rgb(143, 255, 199)',
     failedColor: 'red',
     height: '2px'
 })
+
 
 
 const Toast = Swal.mixin({
@@ -40,7 +42,8 @@ const Toast = Swal.mixin({
       toast.addEventListener('mouseenter', Swal.stopTimer)
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
-})
+});
+
 
 window.Toast = Toast;
 
@@ -49,8 +52,9 @@ let routes = [
     { path: '/dashboard', component:  require('./components/Dashboard.vue') },
     { path: '/developer', component:  require('./components/Developer.vue') },
     { path: '/users', component:  require('./components/Users.vue') },
-    { path: '/profile', component:  require('./components/Profile.vue') }
+    { path: '/profile', component:  require('./components/Profile.vue') },
   ]
+  
   // register the router
   // The history mode is used to format the url in a nice format
 const router = new VueRouter({
@@ -62,13 +66,16 @@ Vue.filter('upText', function(text){
     // return text.toUpperCase();
     return text.charAt(0).toUpperCase() + text.slice(1)
 });
+ 
 
 // Fire is used to create a custom event 
 window.Fire =  new Vue();
 
+
 Vue.filter('myDate', function(created){
     return moment(created).format('MMMM Do YYYY');
 });
+
 
 Vue.component(
     'passport-clients',

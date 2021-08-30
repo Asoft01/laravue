@@ -15,6 +15,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        if (config('app.debug')) {
+            error_reporting(E_ALL & ~E_USER_DEPRECATED);
+        } else {
+            error_reporting(0);
+        }
     }
 
     /**
@@ -26,4 +32,5 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+    
 }

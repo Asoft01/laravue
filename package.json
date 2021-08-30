@@ -23,6 +23,7 @@
         "@fortawesome/fontawesome-free": "^5.15.3",
         "admin-lte": "^3.0.0-alpha.2",
         "moment": "^2.29.1",
+        "node-sass": "^6.0.1",
         "sweetalert2": "^11.0.17",
         "vform": "^2.1.0",
         "vue-progressbar": "^0.7.5",

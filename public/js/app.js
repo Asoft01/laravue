@@ -52914,6 +52914,7 @@ window.Form = __WEBPACK_IMPORTED_MODULE_1_vform__["a" /* default */];
 
 __WEBPACK_IMPORTED_MODULE_2_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
+// The color to the progress bar
 __WEBPACK_IMPORTED_MODULE_2_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_6_vue_progressbar___default.a, {
     color: 'rgb(143, 255, 199)',
     failedColor: 'red',
@@ -52935,6 +52936,7 @@ var Toast = __WEBPACK_IMPORTED_MODULE_5_sweetalert2___default.a.mixin({
 window.Toast = Toast;
 
 var routes = [{ path: '/dashboard', component: __webpack_require__(184) }, { path: '/developer', component: __webpack_require__(187) }, { path: '/users', component: __webpack_require__(190) }, { path: '/profile', component: __webpack_require__(193) }];
+
 // register the router
 // The history mode is used to format the url in a nice format
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
@@ -77549,7 +77551,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -77574,6 +77575,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       // console.log('Editing Data');
+
       this.$Progress.start();
       this.form.put('api/user/' + this.form.id).then(function () {
         // success
@@ -77613,6 +77615,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           // Send request to the server
           _this2.form.delete('api/user/' + id).then(function () {
             Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+            // Find the custom event of AfterCreate and the load the users from the API
             Fire.$emit('AfterCreate');
           }).catch(function () {
             Swal("Failed! ", "There was something wrong ", "warning");
@@ -78613,15 +78616,49 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 col-form-label",
+                          attrs: { for: "inputExperience" }
+                        },
+                        [_vm._v("Experience")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.bio,
+                              expression: "form.bio"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            id: "inputExperience",
+                            placeholder: "Experience"
+                          },
+                          domProps: { value: _vm.form.bio },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "bio", $event.target.value)
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
                     _vm._m(3),
                     _vm._v(" "),
                     _vm._m(4),
                     _vm._v(" "),
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _vm._m(7)
+                    _vm._m(5)
                   ])
                 ]
               )
@@ -78928,50 +78965,6 @@ var staticRenderFns = [
         _c("input", {
           staticClass: "form-control form-control-sm",
           attrs: { type: "text", placeholder: "Type a comment" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-sm-2 col-form-label",
-          attrs: { for: "inputExperience" }
-        },
-        [_vm._v("Experience")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-10" }, [
-        _c("textarea", {
-          staticClass: "form-control",
-          attrs: { id: "inputExperience", placeholder: "Experience" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-sm-2 col-form-label",
-          attrs: { for: "inputSkills" }
-        },
-        [_vm._v("Skills")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-10" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", id: "inputSkills", placeholder: "Skills" }
         })
       ])
     ])

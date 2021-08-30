@@ -52,6 +52,8 @@ npm i axios vform
 
 php artisan make:controller API/UserController --api
 
+php artisan route:list
+
 npm install moment --save
 
 npm install sweetalert2 --save

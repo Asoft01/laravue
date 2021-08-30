@@ -63,6 +63,7 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                
                 <form @submit.prevent="editmode ? updateUser() : createUser()">
                   <div class="modal-body"> 
                     <div class="form-group">
@@ -130,7 +131,6 @@
         methods: {
           updateUser(){
             // console.log('Editing Data');
-
             this.$Progress.start();
             this.form.put('api/user/'+this.form.id)
 
@@ -178,7 +178,6 @@
                       'Your file has been deleted.',
                       'success'
                     )
-                    // Find the custom event of AfterCreate and the load the users from the API
                     Fire.$emit('AfterCreate');
                 }).catch(() => {
                   Swal("Failed! ", "There was something wrong ", "warning");
@@ -186,7 +185,6 @@
               }
             })
           },
-
           loadUsers(){
               axios.get("api/user").then(({ data }) => (this.users = data.data));
           },
