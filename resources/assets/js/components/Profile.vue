@@ -204,7 +204,7 @@
                             <div class="form-group row">
                                 <label for="inputPhoto" class="col-sm-2 col-form-label">Profile Photo</label>
                                 <div class="col-sm-10">
-                                    <input type="file" name="photo" class="form-input">
+                                    <input type="file" @change="updateProfile" name="photo" class="form-input">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -218,7 +218,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="offset-sm-2 col-sm-10">
-                                <button type="submit" class="btn btn-danger">Submit</button>
+                                <button @click.prevent="updateInfo" type="submit" class="btn btn-success">Update</button>
                                 </div>
                             </div>
                         </form>
@@ -252,8 +252,36 @@
         mounted() {
             console.log('Component mounted.')
         },
+
+        methods: {
+            updateInfo(){
+                this.form.put('api/profile/')
+                .then(() => {
+
+                })
+                .catch(() => {
+
+                });
+            },
+            updateProfile(e){
+                // console.log('uploading');
+                let file = e.target.files[0];
+                // console.log(file);
+                let reader = new FileReader();
+                // let vm = this;
+                reader.onloadend = (file) =>{
+                    // console.log('RESULT', reader.result);
+                    this.form.photo = reader.result;
+                }
+                
+                reader.readAsDataURL(file);
+            },
+        },
         created() {
-            axios.get("api/profile").then(({ data }) => (this.form.fill(data)));
+            axios.get("api/profile")
+            .then(({ data }) => (this.form.fill(data)));
         }
+
+        // fill is going to fill the information inside the form
     }
 </script>
