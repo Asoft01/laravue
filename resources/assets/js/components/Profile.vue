@@ -180,7 +180,7 @@
                             <div class="form-group row">
                                 <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-10">
-                                <input type="name" v-model="form.name" class="form-control" id="inputName" placeholder="Name">
+                                <input type="text" v-model="form.name" class="form-control" id="inputName" placeholder="Name">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -207,6 +207,14 @@
                                     <input type="file" @change="updateProfile" name="photo" class="form-input">
                                 </div>
                             </div>
+
+                             <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label">Password</label>
+                                <div class="col-sm-10">
+                                <input type="password" v-model="form.password" class="form-control" id="inputPassword" placeholder="Password">
+                                </div>
+                            </div>
+
                             <div class="form-group row">
                                 <div class="offset-sm-2 col-sm-10">
                                 <div class="checkbox">
@@ -255,26 +263,43 @@
 
         methods: {
             updateInfo(){
+                this.$Progress.start();
                 this.form.put('api/profile/')
                 .then(() => {
-
+                    
+                    this.$Progress.finish();
                 })
                 .catch(() => {
-
+                    this.$Progress.fail();
                 });
             },
             updateProfile(e){
                 // console.log('uploading');
                 let file = e.target.files[0];
-                // console.log(file);
+                console.log(file);
                 let reader = new FileReader();
-                // let vm = this;
-                reader.onloadend = (file) =>{
-                    // console.log('RESULT', reader.result);
-                    this.form.photo = reader.result;
+
+                if(file['size'] < 2111775){
+                    // let vm = this;
+                    reader.onloadend = (file) =>{
+                        // console.log('RESULT', reader.result);
+                        this.form.photo = reader.result;
+                    }
+                    reader.readAsDataURL(file);
+                }else{
+                //    Swal({
+                //        type: 'error',
+                //        title: 'Oops...',
+                //        text: 'You are uploading a large file'
+                //    })
+
+                ////////////////////////////////////////////////////////////
+                    swal({
+                        type: 'error',
+                        title: 'Oops.......',
+                        text: 'You are uploading a large file'
+                    })
                 }
-                
-                reader.readAsDataURL(file);
             },
         },
         created() {
