@@ -66,6 +66,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="info">
           <a href="#" class="d-block">
               {{ Auth::user()->name }}
+              {{-- <p>{{ Auth::user()->type }}</p> --}}
           </a>
         </div>
       </div>
@@ -85,32 +86,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </router-link>
             </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-cog green"></i>
-              <p>
-                Management
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
+            @can('isAdmin')
               <li class="nav-item">
-                <router-link to="/users" class="nav-link">
-                  <i class="fas fa-users nav-icon"></i>
-                  <p>Users</p>
-                </router-link>
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fa fa-cog green"></i>
+                  <p>
+                    Management
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <router-link to="/users" class="nav-link">
+                      <i class="fas fa-users nav-icon"></i>
+                      <p>Users</p>
+                    </router-link>
+                  </li>
+                </ul>
               </li>
-            </ul>
-          </li>
+            @endcan
 
-          <li class="nav-item">
-            <router-link to="/developer" class="nav-link">
-                <i class="nav-icon fas fa-cogs"></i>
-                <p>
-                    Developer
-                </p>
-            </router-link>
-        </li>    
+          @can('isAdmin')
+            <li class="nav-item">
+              <router-link to="/developer" class="nav-link">
+                  <i class="nav-icon fas fa-cogs"></i>
+                  <p>
+                      Developer
+                  </p>
+              </router-link>
+            </li> 
+          @endcan   
         <li class="nav-item">
           <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user orange"></i>
@@ -168,12 +173,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2014-2021 <a href="#">A-$oft</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->
+
+@auth
+  <script>
+    window.user = @json(auth()->user());
+  </script>
+@endauth
 
 <!-- REQUIRED SCRIPTS -->
 <script src="/js/app.js"></script>
 </body>
 </html>
+
+

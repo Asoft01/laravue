@@ -79,3 +79,10 @@ public function __construct()
     {
         $this->middleware('auth:api');
     }
+
+
+Gates 
+
+Writing Gates
+Gates are closures that determines if a user is authorized to perform a given action and are typically defined in the 
+App\Providers\AuthServiceProvider

@@ -30,6 +30,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('isAdmin');
         return User::latest()->paginate(10);
     }
 
@@ -83,8 +84,14 @@ class UserController extends Controller
 
             // $request->photo = $name;
             $request->merge(['photo' => $name]);
+
+            $userPhoto = public_path('image/profile/').$currentPhoto;
+            
+            if(file_exists($userPhoto)){
+                unlink($userPhoto);
+            }
         }
-        
+
         $user->update($request->all());
 
         return ['message' => 'Success'];
@@ -136,6 +143,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('isAdmin');
+
         $user = User::findOrFail($id);
         // Delete User
 

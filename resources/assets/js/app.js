@@ -13,6 +13,10 @@ import VueRouter from 'vue-router'
 import Form from 'vform'
 import Vue from 'vue';
 import moment from 'moment';
+import Gate from './Gate';
+
+Vue.prototype.$gate = new Gate(window.user);
+
 import _, { create } from 'lodash';
 import Swal from 'sweetalert2'
 import VueProgressBar from 'vue-progressbar'
